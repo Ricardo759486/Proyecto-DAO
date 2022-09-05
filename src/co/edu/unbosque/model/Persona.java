@@ -2,7 +2,7 @@ package co.edu.unbosque.model;
 
 public class Persona {
 	
-	private int identificacion;
+	private String identificacion;
 	private String nombre;
 	private String apellido;
 	private char sexo;
@@ -13,7 +13,7 @@ public class Persona {
 		super();
 	}
 	
-	public Persona(int identificacion, String nombre, String apellido, char sexo, String telefono, String direccion) {
+	public Persona(String identificacion, String nombre, String apellido, char sexo, String telefono, String direccion) {
 		super();
 		this.identificacion = identificacion;
 		this.nombre = nombre;
@@ -23,11 +23,11 @@ public class Persona {
 		this.direccion = direccion;
 	}
 
-	public int getIdentificacion() {
+	public String getIdentificacion() {
 		return identificacion;
 	}
 
-	public void setIdentificacion(int identificacion) {
+	public void setIdentificacion(String identificacion) {
 		this.identificacion = identificacion;
 	}
 

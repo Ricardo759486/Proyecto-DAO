@@ -1,4 +1,4 @@
-package co.edu.unbosque.DAO;
+package co.edu.unbosque.model.persistence;
 
 import java.util.List;
 import co.edu.unbosque.model.Persona;
