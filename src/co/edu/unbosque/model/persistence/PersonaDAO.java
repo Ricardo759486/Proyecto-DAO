@@ -5,9 +5,9 @@ import co.edu.unbosque.model.Persona;
 
 public interface PersonaDAO {
 	
-	public void agregarPersona(Persona per) throws Exception;
-	public void editarPersona(Persona per) throws Exception;
-	public void eliminarPersona(Persona per) throws Exception;
+	public boolean agregarPersona(Persona per) throws Exception;
+	public boolean editarPersona(Persona per) throws Exception;
+	public boolean eliminarPersona(Persona per) throws Exception;
 	public List<Persona> listaPersonas() throws Exception;
 
 }

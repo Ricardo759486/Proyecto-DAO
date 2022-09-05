@@ -7,7 +7,7 @@ import java.util.List;
 
 import co.edu.unbosque.model.Persona;
 
-public class PersonaBinDAO extends ConexionBin implements PersonaDAO {
+public class PersonaBinDAO extends ConexionBin{
 
 	private ConexionBin archivo;
 
@@ -17,7 +17,7 @@ public class PersonaBinDAO extends ConexionBin implements PersonaDAO {
 		verificarInvariante();
 	}
 
-	public Persona buscarPersona(String pIdentificacion, ArrayList<Persona> alPersona) {
+	public Persona buscarPersona(int id, ArrayList<Persona> alPersona) {
 
 		Persona encontrado = null;
 
@@ -25,7 +25,7 @@ public class PersonaBinDAO extends ConexionBin implements PersonaDAO {
 
 			for (int i = 0; i < alPersona.size(); i++) {
 
-				if (alPersona.get(i).getIdentificacion().equals(pIdentificacion)) {
+				if (alPersona.get(i).getId() == id) {
 
 					encontrado = alPersona.get(i);
 				}
@@ -36,7 +36,7 @@ public class PersonaBinDAO extends ConexionBin implements PersonaDAO {
 
 	public boolean agregarPersona2(Persona persona, ArrayList<Persona> alPersona, File file) {
 
-		if (buscarPersona(persona.getIdentificacion(), alPersona) == null) {
+		if (buscarPersona(persona.getId(), alPersona) == null) {
 
 			alPersona.add(persona);
 			this.writePersona(alPersona, file);
@@ -49,12 +49,12 @@ public class PersonaBinDAO extends ConexionBin implements PersonaDAO {
 
 	}
 
-	public boolean eliminarPersona2(String pIdentificacion, ArrayList<Persona> alPersona, File file) {
+	public boolean eliminarPersona2(int id, ArrayList<Persona> alPersona, File file) {
 
 		boolean verificar = false;
 
 		try {
-			Persona eliminar = buscarPersona(pIdentificacion, alPersona);
+			Persona eliminar = buscarPersona(id, alPersona);
 
 			if (eliminar != null) {
 
@@ -76,12 +76,13 @@ public class PersonaBinDAO extends ConexionBin implements PersonaDAO {
 	public boolean editarPersona2(Persona persona, ArrayList<Persona> alPersona, File file) {
 
 		boolean encontrado = false;
-		String identificacion = persona.getIdentificacion();
+		int id = persona.getId();
 
 		for (int i = 0; i < alPersona.size(); i++) {
 
-			if (alPersona.get(i).getIdentificacion().equals(identificacion)) {
+			if (alPersona.get(i).getId() == id) {
 
+				alPersona.get(i).setIdentificacion(persona.getIdentificacion());
 				alPersona.get(i).setNombre(persona.getNombre());
 				alPersona.get(i).setApellido(persona.getApellido());
 				alPersona.get(i).setSexo(persona.getSexo());
@@ -104,43 +105,20 @@ public class PersonaBinDAO extends ConexionBin implements PersonaDAO {
 		return encontrado;
 	}
 
-	public String verApostadorTotal(ArrayList<Persona> alPersona) {
+	public String verTotalPersona(ArrayList<Persona> alPersona) {
 
 		String texto = "";
 
 		for (int i = 0; i < alPersona.size(); i++) {
 
-			texto = (alPersona.get(i).getIdentificacion() + "\n" + alPersona.get(i).getNombre() + "\n"
+			texto = ("\n" + "------------------------------" + "\n" + alPersona.get(i).getId() + "\n"
+					+ alPersona.get(i).getIdentificacion() + "\n" + alPersona.get(i).getNombre() + "\n"
 					+ alPersona.get(i).getApellido() + "\n" + alPersona.get(i).getSexo() + "\n"
 					+ alPersona.get(i).getTelefono() + "\n" + alPersona.get(i).getDireccion() + "\n"
 					+ "------------------------------" + "\n");
 		}
 
 		return texto;
-	}
-
-	@Override
-	public void agregarPersona(Persona per) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void editarPersona(Persona per) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void eliminarPersona(Persona per) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public List<Persona> listaPersonas() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	private void verificarInvariante() {

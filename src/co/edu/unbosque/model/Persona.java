@@ -1,20 +1,26 @@
-package co.edu.unbosque.model;
+ package co.edu.unbosque.model;
 
-public class Persona {
+import java.io.Serializable;
+
+public class Persona implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
+	
+	private int id;
 	private String identificacion;
 	private String nombre;
 	private String apellido;
 	private char sexo;
 	private String telefono;
 	private String direccion;
-	
+
 	public Persona() {
-		super();
 	}
-	
-	public Persona(String identificacion, String nombre, String apellido, char sexo, String telefono, String direccion) {
+
+	public Persona(int id, String identificacion, String nombre, String apellido, char sexo, String telefono,
+			String direccion) {
 		super();
+		this.id = id;
 		this.identificacion = identificacion;
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -69,6 +75,18 @@ public class Persona {
 
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 }
