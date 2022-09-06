@@ -15,7 +15,7 @@ public class AplMain {
 		}
 		Controller control = new Controller();
 		//control.probarArray(1,"1000519146", "Ricardo", "Cuevas", 'M', "3123043070", "CR. 6 N° 17-90");
-		control.conexionSqlite(0, "1000519146", "Omar", "Ladino", 'M', "3142589099", "CR. 16 N° 17-90");
+		control.conexionSqlite(0, "1000519146", "Porras", "Ladino", "M", "3142589099", "CR. 16 N° 17-90");
 	}
 
 }

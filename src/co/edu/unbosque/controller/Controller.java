@@ -43,19 +43,19 @@ public class Controller implements ActionListener {
 		String comando = e.getActionCommand();
 	}
 	
-	public void conexionSqlite(int id, String identificacion, String nombre, String apellido, char sexo, String telefono,
+	public void conexionSqlite(int id, String identificacion, String nombre, String apellido, String sexo, String telefono,
 			String direccion) throws Exception {
 		
 		persona = new Persona(id, identificacion, nombre, apellido, sexo, telefono, direccion);
 		
 		if(personaSQLiteDAO.agregarPersona(persona)) {
 			System.out.println(
-					"\n----------------------------------------\n" + "Registrado Correctamente el ArrayList"
+					"\n----------------------------------------\n" + "Registrado Correctamente el SQLite"
 							+ "\n----------------------------------------\n");
 		}
 	}
 	
-	public void probarArray(int id, String identificacion, String nombre, String apellido, char sexo, String telefono,
+	public void probarArray(int id, String identificacion, String nombre, String apellido, String sexo, String telefono,
 			String direccion) {
 		
 		int desicion = 0;
