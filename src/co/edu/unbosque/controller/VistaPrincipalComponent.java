@@ -1,12 +1,8 @@
 package co.edu.unbosque.controller;
 
-import app.client.components.amigos.AmigosComponent;
-import app.client.components.amigos.PersonaComponentArray;
-import app.client.components.amigos.PersonaComponentSQLite;
-import app.client.components.barraTitulo.BarraTituloComponent;
-import app.client.components.navegacionUsuario.NavegacionUsuarioComponent;
-
 import java.awt.Frame;
+
+import co.edu.unbosque.view.VistaPrincipalTemplate;
 
 public class VistaPrincipalComponent {
   private VistaPrincipalTemplate vistaPrincipalTemplate;

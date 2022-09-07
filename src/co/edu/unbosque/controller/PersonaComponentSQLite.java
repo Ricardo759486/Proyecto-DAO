@@ -1,8 +1,5 @@
 package co.edu.unbosque.controller;
 
-import app.services.graphicServices.RecursosService;
-import app.services.logicServices.AmigoService;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -18,8 +15,10 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
-import models.Amigo;
-import models.Persona;
+import co.edu.unbosque.model.Persona;
+import co.edu.unbosque.view.PersonaSQLiteTemplate;
+import co.edu.unbosque.view.RecursosService;
+
 
 public class PersonaComponentSQLite extends MouseAdapter implements ActionListener, FocusListener {
   private PersonaSQLiteTemplate amigosTemplate;

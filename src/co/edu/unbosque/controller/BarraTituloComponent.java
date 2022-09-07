@@ -1,11 +1,11 @@
 package co.edu.unbosque.controller;
 
-import app.client.vistaPrincipal.VistaPrincipalComponent;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import co.edu.unbosque.view.BarraTituloTemplate;
 
 public class BarraTituloComponent extends MouseAdapter implements ActionListener {
   private VistaPrincipalComponent vistaPrincipalComponent;
