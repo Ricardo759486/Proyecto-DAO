@@ -1,7 +1,8 @@
 package co.edu.unbosque.view;
 
-import app.services.graphicServices.ObjGraficosService;
-import app.services.graphicServices.RecursosService;
+import co.edu.unbosque.controller.BarraTituloComponent;
+import co.edu.unbosque.view.ObjGraficosService;
+import co.edu.unbosque.view.RecursosService;
 
 import java.awt.Color;
 import java.awt.Font;

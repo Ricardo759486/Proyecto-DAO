@@ -1,8 +1,9 @@
 package co.edu.unbosque.view;
 
-import app.services.graphicServices.GraficosAvanzadosService;
-import app.services.graphicServices.ObjGraficosService;
-import app.services.graphicServices.RecursosService;
+import co.edu.unbosque.controller.AmigosComponent;
+import co.edu.unbosque.view.GraficosAvanzadosService;
+import co.edu.unbosque.view.ObjGraficosService;
+import co.edu.unbosque.view.RecursosService;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -245,7 +246,7 @@ public class AmigosTemplate extends JPanel {
   public void crearContenidoPDatos() {
     // LABEL INSTRUCCIONES ----------------------------------------------------------------
     lInstrucciones = sObjGraficos.construirJLabel(
-      "<html>Información de la persona<html>",
+      "<html>Informaciï¿½n de la persona<html>",
       20, 10, 120, 50,
       null, null,
       sRecursos.getFontTitulo(),

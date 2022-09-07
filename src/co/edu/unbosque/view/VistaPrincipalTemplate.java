@@ -1,8 +1,9 @@
 package co.edu.unbosque.view;
 
-import app.services.graphicServices.GraficosAvanzadosService;
-import app.services.graphicServices.ObjGraficosService;
-import app.services.graphicServices.RecursosService;
+import co.edu.unbosque.controller.VistaPrincipalComponent;
+import co.edu.unbosque.view.GraficosAvanzadosService;
+import co.edu.unbosque.view.ObjGraficosService;
+import co.edu.unbosque.view.RecursosService;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
