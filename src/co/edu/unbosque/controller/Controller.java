@@ -182,7 +182,7 @@ public class Controller implements ActionListener {
 				break;
 
 			case 4:
-				if (personaSQLiteDAO.eliminarPersona(persona)) {
+				if (personaSQLiteDAO.eliminarPersona(1)) {
 					System.out.println("\n----------------------------------------\n" + "eliminado Correctamente"
 							+ "\n----------------------------------------\n");
 				}

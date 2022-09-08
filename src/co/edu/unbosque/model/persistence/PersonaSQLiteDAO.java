@@ -8,17 +8,16 @@ import java.util.List;
 
 import co.edu.unbosque.model.Persona;
 
-public class PersonaSQLiteDAO extends ConexionSqlite implements PersonaDAO {
+public class PersonaSQLiteDAO extends ConexionSqlite {
 
-	@Override
-	public boolean agregarPersona(Persona per) throws Exception {
+	public boolean agregarPersona(Persona per) {
 		try {
 
 			PreparedStatement pstm = conn.prepareStatement(String.format(
 					"INSERT INTO Persona(Id, Nombre, Apellido, Identificacion, Sexo, Telefono, Direccion) VALUES (null, '%s', '%s','%s','%s','%s','%s')",
 					per.getNombre(), per.getApellido(), per.getIdentificacion(), per.getSexo(), per.getTelefono(),
 					per.getDireccion()));
-			
+
 			pstm.execute();
 			return true;
 		} catch (SQLException e) {
@@ -27,8 +26,7 @@ public class PersonaSQLiteDAO extends ConexionSqlite implements PersonaDAO {
 		}
 	}
 
-	@Override
-	public boolean editarPersona(Persona per) throws Exception {
+	public boolean editarPersona(Persona per) {
 		try {
 			PreparedStatement pstm = conn.prepareStatement(String.format(
 					"UPDATE Persona SET Nombre='%s', Apellido='%s', Identificacion='%s',Sexo='%s', Telefono='%s',Direccion='%s', WHERE ID='%d'",
@@ -41,12 +39,10 @@ public class PersonaSQLiteDAO extends ConexionSqlite implements PersonaDAO {
 		}
 	}
 
-	@Override
-	public boolean eliminarPersona(Persona per) throws Exception {
+	public boolean eliminarPersona(int id) {
 
 		try {
-			PreparedStatement pstm = conn
-					.prepareStatement(String.format("DELETE FROM Persona WHERE Id = %d", per.getNombre()));
+			PreparedStatement pstm = conn.prepareStatement(String.format("DELETE FROM Persona WHERE Id = %d", id));
 			pstm.execute();
 			return true;
 		} catch (Exception e) {
@@ -54,8 +50,7 @@ public class PersonaSQLiteDAO extends ConexionSqlite implements PersonaDAO {
 		}
 	}
 
-	@Override
-	public List<Persona> listaPersonas() throws Exception {
+	public List<Persona> listaPersonas() {
 
 		try {
 			PreparedStatement pstm = conn.prepareStatement("SELECT * FROM Persona");
@@ -64,8 +59,8 @@ public class PersonaSQLiteDAO extends ConexionSqlite implements PersonaDAO {
 			List<Persona> miLista = new ArrayList<Persona>();
 
 			while (respuesta.next()) {
-				Persona per = new Persona(respuesta.getInt("Id"), respuesta.getString("Nombre"),
-						respuesta.getString("Apellido"), respuesta.getString("Identificacion"),
+				Persona per = new Persona(respuesta.getInt("Id"), respuesta.getString("Identificacion"),
+						respuesta.getString("Nombre"), respuesta.getString("Apellido"),
 						respuesta.getString("sexo"), respuesta.getString("Telefono"), respuesta.getString("Direccion"));
 
 				miLista.add(per);
@@ -75,6 +70,23 @@ public class PersonaSQLiteDAO extends ConexionSqlite implements PersonaDAO {
 			System.out.println(e);
 			return null;
 		}
+	}
+
+	public Persona buscarPersona(int id, List<Persona> alPersona) {
+
+		Persona encontrado = null;
+
+		if (!alPersona.isEmpty()) {
+
+			for (int i = 0; i < alPersona.size(); i++) {
+
+				if (alPersona.get(i).getId() == id) {
+
+					encontrado = alPersona.get(i);
+				}
+			}
+		}
+		return encontrado;
 	}
 
 }
