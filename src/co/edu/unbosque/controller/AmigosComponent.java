@@ -119,12 +119,12 @@ public class AmigosComponent extends MouseAdapter implements ActionListener, Foc
 	}
 
 	public void mostrarRegistrosTabla() {
-		int tamaño = alPersonaBin.size();
-		for (int i = 0; i < tamaño; i++) {
+		int tamanio = alPersonaBin.size();
+		for (int i = 0; i < tamanio; i++) {
 			persona = personaBinDAO.buscarPersona(i, alPersonaBin);
 			this.agregarRegistro(persona);
 		}
-		amigosTemplate.getLIdValor().setText(tamaño + "");
+		amigosTemplate.getLIdValor().setText(tamanio + "");
 		amigosTemplate.getBMostrar().setEnabled(false);
 	}
 

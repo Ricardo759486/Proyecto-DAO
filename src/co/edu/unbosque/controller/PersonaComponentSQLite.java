@@ -86,7 +86,7 @@ public class PersonaComponentSQLite extends MouseAdapter implements ActionListen
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource() instanceof JTable) {
-			int fila = amigosTemplate.getTabla().getSelectedRow();
+			int fila = amigosTemplate.getTabla().getSelectedRow() +16;
 			List<Persona> miLista;
 			try {
 				miLista = personaSQLiteDAO.listaPersonas();
@@ -136,12 +136,17 @@ public class PersonaComponentSQLite extends MouseAdapter implements ActionListen
 	public void mostrarRegistrosTabla() throws Exception {
 		List<Persona> miLista = personaSQLiteDAO.listaPersonas();
 		int tamaño = miLista.size();
-		for (int i = 1; i < tamaño; i++) {
+		boolean v = true;
+		int i = 0;
+		int f = 0;
+		while(f < miLista.size()) {
 			amigo = personaSQLiteDAO.buscarPersona(i, miLista);
-			this.agregarRegistro(amigo);
+			if(amigo != null) {
+				this.agregarRegistro(amigo);	
+				f++;
+			}
+			i++;
 		}
-		amigosTemplate.getLIdValor().setText(tamaño + "");
-		amigosTemplate.getBMostrar().setEnabled(false);
 	}
 
 	public void insertarRegistroTabla() throws Exception {
@@ -161,7 +166,7 @@ public class PersonaComponentSQLite extends MouseAdapter implements ActionListen
 	}
 
 	public void modificarRegistroTabla() throws Exception {
-		int fSeleccionada = amigosTemplate.getTabla().getSelectedRow();
+		int fSeleccionada = amigosTemplate.getTabla().getSelectedRow()-1;
 		if (fSeleccionada != -1) {
 			amigosTemplate.getModelo().setValueAt(amigosTemplate.getTNombre().getText(), fSeleccionada, 1);
 			amigosTemplate.getModelo().setValueAt(amigosTemplate.getTApellido().getText(), fSeleccionada, 2);
