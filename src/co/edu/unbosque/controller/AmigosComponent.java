@@ -29,7 +29,7 @@ public class AmigosComponent extends MouseAdapter implements ActionListener, Foc
 	private File filePersonaBin;
 	private ConexionBin conexionbin;
 	private PersonaBinDAO personaBinDAO;
-	private String[] placeholders = { "Nombre", "Apellido", "Identificación", "Sexo", "Telefono", "Direccion",
+	private String[] placeholders = { "Nombre", "Apellido", "Identificaciï¿½n", "Sexo", "Telefono", "Direccion",
 			"Filtrar...", };
 	private Persona persona;
 
@@ -119,12 +119,12 @@ public class AmigosComponent extends MouseAdapter implements ActionListener, Foc
 	}
 
 	public void mostrarRegistrosTabla() {
-		int tamaño = alPersonaBin.size();
-		for (int i = 0; i < tamaño; i++) {
+		int tamaÃ±o = alPersonaBin.size();
+		for (int i = 0; i < tamaÃ±o; i++) {
 			persona = personaBinDAO.buscarPersona(i, alPersonaBin);
 			this.agregarRegistro(persona);
 		}
-		amigosTemplate.getLIdValor().setText(tamaño + "");
+		amigosTemplate.getLIdValor().setText(tamaÃ±o + "");
 		amigosTemplate.getBMostrar().setEnabled(false);
 	}
 
