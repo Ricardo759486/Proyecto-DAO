@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 
 import co.edu.unbosque.view.NavegacionUsuarioTemplate;
+import co.edu.unbosque.view.RecursosService;
 
 public class NavegacionUsuarioComponent extends MouseAdapter implements ActionListener {
   private NavegacionUsuarioTemplate navegacionUsuarioTemplate;

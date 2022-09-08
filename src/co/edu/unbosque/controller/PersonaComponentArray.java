@@ -21,20 +21,20 @@ import co.edu.unbosque.view.RecursosService;
 
 public class PersonaComponentArray extends MouseAdapter implements ActionListener, FocusListener {
   private PersonaArrayTemplate amigosTemplate;
-  private AmigoService sAmigos;
+  //private AmigoService sAmigos;
   private String[] placeholders = {
     "Nombre", "Apellido", "Identificación", "Sexo", "Telefono", "Direccion", "Filtrar...",
   };
   private Persona amigo;
 
   public PersonaComponentArray() {
-    sAmigos = AmigoService.getService();
+    //sAmigos = AmigoService.getService();
     amigosTemplate = new PersonaArrayTemplate(this);
   }
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    if (e.getSource() == amigosTemplate.getBMostrar()) mostrarRegistrosTabla();
+    //if (e.getSource() == amigosTemplate.getBMostrar()) mostrarRegistrosTabla();
     if (e.getSource() == amigosTemplate.getBInsertar()) insertarRegistroTabla();
     if (e.getSource() == amigosTemplate.getBModificar()) modificarRegistroTabla();
     if (e.getSource() == amigosTemplate.getBEliminar()) eliminarRegistroTabla();
@@ -70,7 +70,7 @@ public class PersonaComponentArray extends MouseAdapter implements ActionListene
   public void mouseClicked(MouseEvent e) {
     if (e.getSource() instanceof JTable) {
       int fila = amigosTemplate.getTabla().getSelectedRow();
-      amigo = sAmigos.devolverAmigo(fila);
+      //amigo = sAmigos.devolverAmigo(fila);
       amigosTemplate.getLIdValor().setText(amigo.getId() + "");
       amigosTemplate.getTNombre().setText(amigo.getNombre());
       amigosTemplate.getTApellido().setText(amigo.getApellido());
@@ -98,7 +98,7 @@ public class PersonaComponentArray extends MouseAdapter implements ActionListene
   }
 
   public void restaurarValores() {
-    amigosTemplate.getLIdValor().setText(sAmigos.devolverCantidadAmigos() + "");
+    //amigosTemplate.getLIdValor().setText(sAmigos.devolverCantidadAmigos() + "");
     amigosTemplate.getTNombre().setText(placeholders[0]);
     amigosTemplate.getTApellido().setText(placeholders[1]);
     amigosTemplate.getTIdentificacion().setText(placeholders[2]);
@@ -108,18 +108,18 @@ public class PersonaComponentArray extends MouseAdapter implements ActionListene
     amigosTemplate.getTabla().setSelectionMode(0);
   }
 
-  public void mostrarRegistrosTabla() {
+  /*public void mostrarRegistrosTabla() {
     for (int i = 0; i < sAmigos.devolverCantidadAmigos(); i++) {
       amigo = sAmigos.devolverAmigo(i);
       this.agregarRegistro(amigo);
     }
     amigosTemplate.getLIdValor().setText(sAmigos.devolverCantidadAmigos() + "");
     amigosTemplate.getBMostrar().setEnabled(false);
-  }
+  }*/
 
   public void insertarRegistroTabla() {
     amigo = new Persona();
-    amigo.setId(sAmigos.devolverCantidadAmigos());
+    //amigo.setId(sAmigos.devolverCantidadAmigos());
     amigo.setNombre(amigosTemplate.getTNombre().getText());
     amigo.setApellido(amigosTemplate.getTApellido().getText());
     amigo.setIdentificacion(amigosTemplate.getTIdentificacion().getText());
@@ -127,7 +127,7 @@ public class PersonaComponentArray extends MouseAdapter implements ActionListene
     amigo.setTelefono(amigosTemplate.getTTelefono().getText());
     amigo.setDireccion(amigosTemplate.getTDireccion().getText());
     this.agregarRegistro(amigo);
-    sAmigos.agregarAmigo(amigo);
+    //sAmigos.agregarAmigo(amigo);
     restaurarValores();
   }
 
@@ -147,7 +147,7 @@ public class PersonaComponentArray extends MouseAdapter implements ActionListene
       amigosTemplate.getModelo()
       .setValueAt(amigosTemplate.getTDireccion().getText(), fSeleccionada, 6);
       
-      amigo = sAmigos.devolverAmigo(fSeleccionada);
+      //amigo = sAmigos.devolverAmigo(fSeleccionada);
       amigo.setNombre(amigosTemplate.getTNombre().getText());
       amigo.setApellido(amigosTemplate.getTApellido().getText());
       amigo.setIdentificacion(amigosTemplate.getTIdentificacion().getText());
