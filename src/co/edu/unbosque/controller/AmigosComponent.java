@@ -6,6 +6,8 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -16,20 +18,28 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
 import co.edu.unbosque.model.Persona;
+import co.edu.unbosque.model.persistence.ConexionBin;
+import co.edu.unbosque.model.persistence.PersonaBinDAO;
 import co.edu.unbosque.view.AmigosTemplate;
 import co.edu.unbosque.view.RecursosService;
 
 public class AmigosComponent extends MouseAdapter implements ActionListener, FocusListener {
   private AmigosTemplate amigosTemplate;
-  private AmigoService sAmigos;
+  private ArrayList<Persona> alPersonaBin;
+  private File filePersonaBin;
+  private ConexionBin conexionbin;
+  private PersonaBinDAO personaBinDAO;
   private String[] placeholders = {
     "Nombre", "Apellido", "Identificación", "Sexo", "Telefono", "Direccion", "Filtrar...",
   };
-  private Persona amigo;
+  private Persona persona;
 
   public AmigosComponent() {
-    sAmigos = AmigoService.getService();
-    amigosTemplate = new AmigosTemplate(this);
+	  filePersonaBin = new File("datos\\Personas.dat");
+	  conexionbin = new ConexionBin(filePersonaBin);
+	  personaBinDAO = new PersonaBinDAO(conexionbin);
+	  alPersonaBin = conexionbin.readPersona(filePersonaBin);
+	  amigosTemplate = new AmigosTemplate(this);
   }
 
   @Override
@@ -70,14 +80,14 @@ public class AmigosComponent extends MouseAdapter implements ActionListener, Foc
   public void mouseClicked(MouseEvent e) {
     if (e.getSource() instanceof JTable) {
       int fila = amigosTemplate.getTabla().getSelectedRow();
-      amigo = sAmigos.devolverAmigo(fila);
-      amigosTemplate.getLIdValor().setText(amigo.getId() + "");
-      amigosTemplate.getTNombre().setText(amigo.getNombre());
-      amigosTemplate.getTApellido().setText(amigo.getApellido());
-      amigosTemplate.getTIdentificacion().setText(amigo.getIdentificacion());
-      amigosTemplate.getTSexo().setText(amigo.getSexo());
-      amigosTemplate.getTTelefono().setText(amigo.getTelefono());
-      amigosTemplate.getTDireccion().setText(amigo.getDireccion());
+      persona = personaBinDAO.buscarPersona(fila, alPersonaBin);
+      amigosTemplate.getLIdValor().setText(persona.getId() + "");
+      amigosTemplate.getTNombre().setText(persona.getNombre());
+      amigosTemplate.getTApellido().setText(persona.getApellido());
+      amigosTemplate.getTIdentificacion().setText(persona.getIdentificacion());
+      amigosTemplate.getTSexo().setText(persona.getSexo());
+      amigosTemplate.getTTelefono().setText(persona.getTelefono());
+      amigosTemplate.getTDireccion().setText(persona.getDireccion());
     }
   }
 
@@ -98,7 +108,7 @@ public class AmigosComponent extends MouseAdapter implements ActionListener, Foc
   }
 
   public void restaurarValores() {
-    amigosTemplate.getLIdValor().setText(sAmigos.devolverCantidadAmigos() + "");
+    amigosTemplate.getLIdValor().setText(alPersonaBin.size() + "");
     amigosTemplate.getTNombre().setText(placeholders[0]);
     amigosTemplate.getTApellido().setText(placeholders[1]);
     amigosTemplate.getTIdentificacion().setText(placeholders[2]);
@@ -109,25 +119,26 @@ public class AmigosComponent extends MouseAdapter implements ActionListener, Foc
   }
 
   public void mostrarRegistrosTabla() {
-    for (int i = 0; i < sAmigos.devolverCantidadAmigos(); i++) {
-      amigo = sAmigos.devolverAmigo(i);
-      this.agregarRegistro(amigo);
+	int tamaño = alPersonaBin.size();
+    for (int i = 0; i < tamaño; i++) {
+      persona = personaBinDAO.buscarPersona(i, alPersonaBin);
+      this.agregarRegistro(persona);
     }
-    amigosTemplate.getLIdValor().setText(sAmigos.devolverCantidadAmigos() + "");
+    amigosTemplate.getLIdValor().setText(tamaño + "");
     amigosTemplate.getBMostrar().setEnabled(false);
   }
 
   public void insertarRegistroTabla() {
-    amigo = new Persona();
-    amigo.setId(sAmigos.devolverCantidadAmigos());
-    amigo.setNombre(amigosTemplate.getTNombre().getText());
-    amigo.setApellido(amigosTemplate.getTApellido().getText());
-    amigo.setIdentificacion(amigosTemplate.getTIdentificacion().getText());
-    amigo.setSexo(amigosTemplate.getTSexo().getText());
-    amigo.setTelefono(amigosTemplate.getTTelefono().getText());
-    amigo.setDireccion(amigosTemplate.getTDireccion().getText());
-    this.agregarRegistro(amigo);
-    sAmigos.agregarAmigo(amigo);
+    persona = new Persona();
+    persona.setId(alPersonaBin.size());
+    persona.setNombre(amigosTemplate.getTNombre().getText());
+    persona.setApellido(amigosTemplate.getTApellido().getText());
+    persona.setIdentificacion(amigosTemplate.getTIdentificacion().getText());
+    persona.setSexo(amigosTemplate.getTSexo().getText());
+    persona.setTelefono(amigosTemplate.getTTelefono().getText());
+    persona.setDireccion(amigosTemplate.getTDireccion().getText());
+    this.agregarRegistro(persona);
+    personaBinDAO.agregarPersona2(persona, alPersonaBin, filePersonaBin);
     restaurarValores();
   }
 
@@ -147,13 +158,14 @@ public class AmigosComponent extends MouseAdapter implements ActionListener, Foc
       amigosTemplate.getModelo()
       .setValueAt(amigosTemplate.getTDireccion().getText(), fSeleccionada, 6);
       
-      amigo = sAmigos.devolverAmigo(fSeleccionada);
-      amigo.setNombre(amigosTemplate.getTNombre().getText());
-      amigo.setApellido(amigosTemplate.getTApellido().getText());
-      amigo.setIdentificacion(amigosTemplate.getTIdentificacion().getText());
-      amigo.setSexo(amigosTemplate.getTSexo().getText());
-      amigo.setTelefono(amigosTemplate.getTTelefono().getText());
-      amigo.setDireccion(amigosTemplate.getTDireccion().getText());
+      persona = personaBinDAO.buscarPersona(fSeleccionada, alPersonaBin);
+      persona.setNombre(amigosTemplate.getTNombre().getText());
+      persona.setApellido(amigosTemplate.getTApellido().getText());
+      persona.setIdentificacion(amigosTemplate.getTIdentificacion().getText());
+      persona.setSexo(amigosTemplate.getTSexo().getText());
+      persona.setTelefono(amigosTemplate.getTTelefono().getText());
+      persona.setDireccion(amigosTemplate.getTDireccion().getText());
+      
       restaurarValores();
     } else JOptionPane.showMessageDialog(
       null,
